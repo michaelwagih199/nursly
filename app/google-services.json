@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "900412495820",
+    "project_id": "nursly",
+    "storage_bucket": "nursly.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:900412495820:android:be014408c36b014d6eaf69",
+        "android_client_info": {
+          "package_name": "com.polimigo.babydaycare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "900412495820-h3aaontqi9f1tb758eirvj40jtm9aibb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfmcIeh8xmnTV649j63x_eR9iSpXd3hf8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "900412495820-h3aaontqi9f1tb758eirvj40jtm9aibb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
