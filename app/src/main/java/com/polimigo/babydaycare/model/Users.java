@@ -3,7 +3,6 @@ package com.polimigo.babydaycare.model;
 import com.google.firebase.firestore.DocumentId;
 
 public class Users {
-
     @DocumentId
     private String documentId;
     private String firstNameString;

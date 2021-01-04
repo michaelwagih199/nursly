@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import com.polimigo.babydaycare.R;
-import maes.tech.intentanim.CustomIntent;
+import com.polimigo.babydaycare.view.login_screen.LoginScreen;
 
 public class SplashScreen extends AppCompatActivity {
 

@@ -9,14 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.polimigo.babydaycare.R;
-import com.polimigo.babydaycare.view.AboutApplicationScreen;
-import com.polimigo.babydaycare.view.LoginScreen;
-import com.polimigo.babydaycare.view.OwnerNurslyHome;
-import com.polimigo.babydaycare.view.OwnerNurslyRegister;
-import com.polimigo.babydaycare.view.SeekerNurslyHome;
-import com.polimigo.babydaycare.view.SeekerNurslyRegister;
+import com.polimigo.babydaycare.view.register_screen.RegisterScreen;
 
-import maes.tech.intentanim.CustomIntent;
 
 public class ViewDialog {
 
@@ -25,26 +19,21 @@ public class ViewDialog {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.my_dialog);
-
         TextView text = (TextView) dialog.findViewById(R.id.text_dialog);
+
         text.setText(msg);
 
         Button btnOwner = (Button) dialog.findViewById(R.id.btnOwner);
-        btnOwner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activity.startActivity(new Intent(activity, OwnerNurslyRegister.class));
-                CustomIntent.customType(activity,"bottom-to-up");
-                activity.finish();
-                dialog.dismiss();
-            }
+        btnOwner.setOnClickListener(v -> {
+            activity.startActivity(new Intent(activity, RegisterScreen.class));
+            activity.finish();
+            dialog.dismiss();
         });
         Button btnSeeker = (Button) dialog.findViewById(R.id.btnSeeker);
         btnSeeker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.startActivity(new Intent(activity, SeekerNurslyRegister.class));
-                CustomIntent.customType(activity,"bottom-to-up");
+                activity.startActivity(new Intent(activity, RegisterScreen.class));
                 activity.finish();
                 dialog.dismiss();
             }

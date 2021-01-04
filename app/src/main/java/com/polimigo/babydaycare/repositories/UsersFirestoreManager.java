@@ -2,6 +2,7 @@ package com.polimigo.babydaycare.repositories;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -17,6 +18,8 @@ import com.polimigo.babydaycare.helpers.ToastMessage;
 import com.polimigo.babydaycare.model.Users;
 import com.polimigo.babydaycare.view.OwnerNurslyHome;
 import com.polimigo.babydaycare.view.SeekerNurslyHome;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class UsersFirestoreManager {
 
@@ -41,8 +44,17 @@ public class UsersFirestoreManager {
         contactsCollectionReference = firebaseFirestore.collection("users");
     }
 
-    public void createDocument(Users contact) {
-        contactsCollectionReference.add(contact);
+    public boolean createDocument(Users contact) {
+        final boolean[] result = {true};
+        contactsCollectionReference.add(contact).addOnCompleteListener(command -> {
+            Log.d("dddd",""+command.isSuccessful());
+            if (command.isSuccessful())
+                result[0] = true;
+            if (command.isCanceled())
+                result[0] = false;
+        });
+        Log.d("resss",""+result[0]);
+        return result[0];
     }
 
     public void getAllContacts(OnCompleteListener<QuerySnapshot> onCompleteListener) {
@@ -58,10 +70,6 @@ public class UsersFirestoreManager {
     public void deleteContact(String documentId) {
         DocumentReference documentReference = contactsCollectionReference.document(documentId);
         documentReference.delete();
-    }
-
-    public void sendContactsBulk(String firstNameString, String lastNameString, String userName, String password, String userType) {
-        createDocument(new Users(firstNameString,lastNameString,userName , password, userType));
     }
 
     public void isUser(final String userName, String password, final String userType, final Context context) {

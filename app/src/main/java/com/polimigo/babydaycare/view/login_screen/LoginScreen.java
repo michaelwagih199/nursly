@@ -1,4 +1,4 @@
-package com.polimigo.babydaycare.view;
+package com.polimigo.babydaycare.view.login_screen;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.DataBindingUtil;
@@ -9,10 +9,11 @@ import android.view.View;
 import android.widget.Toast;
 import com.polimigo.babydaycare.R;
 import com.polimigo.babydaycare.databinding.ActivityLoginScreenBinding;
+import com.polimigo.babydaycare.view.AboutApplicationScreen;
+import com.polimigo.babydaycare.view.OwnerNurslyHome;
 import com.polimigo.babydaycare.view.viewUtiliti.ViewDialog;
 import com.polimigo.babydaycare.viewModel.LoginViewModel;
 
-import maes.tech.intentanim.CustomIntent;
 
 public class LoginScreen extends AppCompatActivity  {
 
@@ -36,8 +37,7 @@ public class LoginScreen extends AppCompatActivity  {
     }
 
     public void onAboutApplication(View view) {
-        startActivity(new Intent(this,OwnerNurslyHome.class));
-        CustomIntent.customType(LoginScreen.this,"bottom-to-up");
+        startActivity(new Intent(this, AboutApplicationScreen.class));
 //        finish();
     }
 

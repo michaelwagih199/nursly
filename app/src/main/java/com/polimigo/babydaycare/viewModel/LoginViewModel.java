@@ -6,14 +6,12 @@ import android.util.Patterns;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
-import androidx.databinding.library.baseAdapters.BR;
-
 import android.text.TextUtils;
 import android.util.Patterns;
-
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.databinding.library.baseAdapters.BR;
+
 import com.polimigo.babydaycare.model.User;
 import com.polimigo.babydaycare.view.AboutApplicationScreen;
 
