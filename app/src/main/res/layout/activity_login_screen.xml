@@ -63,6 +63,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:layout_marginRight="@dimen/_10sdp"
+                        android:onCheckedChanged="@{viewModel.onSplitTypeChanged}"
                         android:orientation="horizontal">
 
                         <RadioButton
@@ -70,14 +71,16 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:fontFamily="@font/el_messiri_medium"
-                            android:text="Owner" />
+                            android:text="Owner"
+                           />
 
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:fontFamily="@font/el_messiri_medium"
-                            android:text="Seeker" />
+                            android:text="Seeker"
+                           />
                     </RadioGroup>
 
                 </androidx.cardview.widget.CardView>
@@ -93,7 +96,7 @@
                     android:drawableLeft="@drawable/ic_baseline_account_circle_24"
                     android:textColor="@android:color/white"
                     android:textColorHint="@android:color/white"
-                    android:text="@={viewModel.userEmail}"/>
+                    android:text="@={viewModel.users.userName}"/>
 
                 <EditText
                     android:id="@+id/editTextTextPassword2"
@@ -109,7 +112,7 @@
                     android:drawableLeft="@drawable/ic_baseline_lock_24"
                     android:inputType="textPassword"
                     android:textColorHint="@android:color/white"
-                    android:text="@={viewModel.userPassword}"/>
+                    android:text="@={viewModel.users.password}"/>
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -160,7 +163,12 @@
                 
             </LinearLayout>
 
-        </androidx.cardview.widget.CardView>
+            <include
+                android:id="@+id/llProgressBar"
+                android:visibility="gone"
+                layout="@layout/layout_progress_bar_with_text"/>
 
+        </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

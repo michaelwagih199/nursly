@@ -1,10 +1,7 @@
 package com.polimigo.babydaycare.viewModel;
-
 import android.text.TextUtils;
-
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
-
 import com.polimigo.babydaycare.BR;
 import com.polimigo.babydaycare.model.Users;
 import com.polimigo.babydaycare.repositories.UsersFirestoreManager;
@@ -20,8 +17,8 @@ public class RegisterViewModel extends BaseObservable {
     private String errorMessage = "Please fill All data";
     private UsersFirestoreManager usersFirestoreManager;
 
-    public RegisterViewModel(RegisterEvents registerViewModel) {
-        users = new Users("", "", "", "", "");
+    public RegisterViewModel(RegisterEvents registerViewModel,String type) {
+        users = new Users("", "", "", "",type);
         this.registerEvents = registerViewModel;
         usersFirestoreManager = UsersFirestoreManager.newInstance();
     }
@@ -55,7 +52,7 @@ public class RegisterViewModel extends BaseObservable {
             contact.setLastNameString(users.getLastNameString());
             contact.setUserName(users.getUserName());
             contact.setPassword(users.getPassword());
-            contact.setUserType("testType");
+            contact.setUserType(users.getUserType());
             if (usersFirestoreManager.createDocument(contact))
                 registerEvents.onSuccessL();
             else

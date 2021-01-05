@@ -11,18 +11,21 @@ import com.polimigo.babydaycare.R;
 import com.polimigo.babydaycare.databinding.ActivityLoginScreenBinding;
 import com.polimigo.babydaycare.view.AboutApplicationScreen;
 import com.polimigo.babydaycare.view.OwnerNurslyHome;
+import com.polimigo.babydaycare.view.register_screen.RegisterEvents;
+import com.polimigo.babydaycare.view.viewUtiliti.AwsemdialogIm;
 import com.polimigo.babydaycare.view.viewUtiliti.ViewDialog;
 import com.polimigo.babydaycare.viewModel.LoginViewModel;
 
 
-public class LoginScreen extends AppCompatActivity  {
-
+public class LoginScreen extends AppCompatActivity implements RegisterEvents {
+    View llProgressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityLoginScreenBinding activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_login_screen);
-        activityMainBinding.setViewModel(new LoginViewModel());
+        activityMainBinding.setViewModel(new LoginViewModel(this,this));
         activityMainBinding.executePendingBindings();
+        llProgressBar = findViewById(R.id.llProgressBar);
     }
 
     @BindingAdapter({"toastMessage"})
@@ -39,6 +42,22 @@ public class LoginScreen extends AppCompatActivity  {
     public void onAboutApplication(View view) {
         startActivity(new Intent(this, AboutApplicationScreen.class));
 //        finish();
+    }
+
+
+    @Override
+    public void onStartedL() {
+        llProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onSuccessL() {
+        llProgressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onFailerL() {
+
     }
 
 }

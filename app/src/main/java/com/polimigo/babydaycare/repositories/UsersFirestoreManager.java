@@ -97,7 +97,6 @@ public class UsersFirestoreManager {
                                         Intent i = new Intent(context.getApplicationContext(), SeekerNurslyHome.class);
                                         sharedPrefrenceHelper.setUsername(context, userName);
                                         context.startActivity(i);
-
                                     }
 
                                 }

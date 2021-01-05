@@ -25,15 +25,20 @@ public class ViewDialog {
 
         Button btnOwner = (Button) dialog.findViewById(R.id.btnOwner);
         btnOwner.setOnClickListener(v -> {
-            activity.startActivity(new Intent(activity, RegisterScreen.class));
+            Intent mIntent = new Intent(activity, RegisterScreen.class);
+            mIntent.putExtra("userType", "owner");
+            activity.startActivity(mIntent);
             activity.finish();
             dialog.dismiss();
         });
+
         Button btnSeeker = (Button) dialog.findViewById(R.id.btnSeeker);
         btnSeeker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.startActivity(new Intent(activity, RegisterScreen.class));
+                Intent mIntent = new Intent(activity, RegisterScreen.class);
+                mIntent.putExtra("userType", "seeker");
+                activity.startActivity(mIntent);
                 activity.finish();
                 dialog.dismiss();
             }

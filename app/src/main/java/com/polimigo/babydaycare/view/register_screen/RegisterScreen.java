@@ -14,6 +14,7 @@ import com.polimigo.babydaycare.R;
 import com.polimigo.babydaycare.databinding.ActivityOwnerNurslyBinding;
 import com.polimigo.babydaycare.view.AboutApplicationScreen;
 import com.polimigo.babydaycare.view.OwnerNurslyHome;
+import com.polimigo.babydaycare.view.login_screen.LoginScreen;
 import com.polimigo.babydaycare.view.viewUtiliti.AwsemdialogIm;
 import com.polimigo.babydaycare.viewModel.RegisterViewModel;
 
@@ -25,7 +26,9 @@ public class RegisterScreen extends AppCompatActivity implements RegisterEvents 
         super.onCreate(savedInstanceState);
         ActivityOwnerNurslyBinding activityOwnerNurslyBinding =
                 DataBindingUtil.setContentView(this, R.layout.activity_owner_nursly);
-        activityOwnerNurslyBinding.setRegisterModel(new RegisterViewModel(this));
+        String userType = getIntent().getExtras().getString("userType");
+        RegisterViewModel registerViewModel = new RegisterViewModel(this,userType);
+        activityOwnerNurslyBinding.setRegisterModel(registerViewModel);
         activityOwnerNurslyBinding.executePendingBindings();
         llProgressBar = findViewById(R.id.llProgressBar);
     }
@@ -46,7 +49,7 @@ public class RegisterScreen extends AppCompatActivity implements RegisterEvents 
         llProgressBar.setVisibility(View.GONE);
         AwsemdialogIm awsemdialogIm = new AwsemdialogIm();
         awsemdialogIm.sucssDialog(this,
-                new Intent(this, AboutApplicationScreen.class),
+                new Intent(this, LoginScreen.class),
                 "Sucess", "body");
     }
 

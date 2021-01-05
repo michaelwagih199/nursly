@@ -13,7 +13,7 @@
             android:screenOrientation="portrait"></activity>
         <activity android:name=".view.OwnerNurslyHome"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"/>
+           />
         <activity android:name=".view.register_screen.RegisterScreen" />
         <activity android:name=".view.AboutApplicationScreen" />
         <activity android:name=".view.login_screen.LoginScreen" />
