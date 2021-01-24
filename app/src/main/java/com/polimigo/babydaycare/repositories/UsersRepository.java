@@ -16,30 +16,28 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.polimigo.babydaycare.helpers.SharedPrefrenceHelper;
 import com.polimigo.babydaycare.helpers.ToastMessage;
 import com.polimigo.babydaycare.model.Users;
-import com.polimigo.babydaycare.view.OwnerNurslyHome;
-import com.polimigo.babydaycare.view.SeekerNurslyHome;
+import com.polimigo.babydaycare.view.nursly.OwnerNurslyHome;
+import com.polimigo.babydaycare.view.seeker.SeekerNurslyHome;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
-public class UsersFirestoreManager {
+public class UsersRepository {
 
     /* ContactsFirestoreManager object **/
-    private static UsersFirestoreManager usersFirestoreManager;
+    private static UsersRepository usersRepository;
 
     private FirebaseFirestore firebaseFirestore;
     private CollectionReference contactsCollectionReference;
     SharedPrefrenceHelper sharedPrefrenceHelper = new SharedPrefrenceHelper();
 
 
-    public static UsersFirestoreManager newInstance() {
-        if (usersFirestoreManager == null) {
-            usersFirestoreManager = new UsersFirestoreManager();
+    public static UsersRepository newInstance() {
+        if (usersRepository == null) {
+            usersRepository = new UsersRepository();
         }
-        return usersFirestoreManager;
+        return usersRepository;
     }
 
 
-    private UsersFirestoreManager() {
+    private UsersRepository() {
         firebaseFirestore = FirebaseFirestore.getInstance();
         contactsCollectionReference = firebaseFirestore.collection("users");
     }

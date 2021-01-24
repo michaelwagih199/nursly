@@ -1,4 +1,4 @@
-package com.polimigo.babydaycare.view.register_screen;
+package com.polimigo.babydaycare.view.events;
 
 public interface RegisterEvents {
     public abstract void onStartedL();

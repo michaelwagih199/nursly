@@ -4,8 +4,8 @@ import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import com.polimigo.babydaycare.BR;
 import com.polimigo.babydaycare.model.Users;
-import com.polimigo.babydaycare.repositories.UsersFirestoreManager;
-import com.polimigo.babydaycare.view.register_screen.RegisterEvents;
+import com.polimigo.babydaycare.repositories.UsersRepository;
+import com.polimigo.babydaycare.view.events.RegisterEvents;
 
 public class RegisterViewModel extends BaseObservable {
 
@@ -15,12 +15,12 @@ public class RegisterViewModel extends BaseObservable {
     RegisterEvents registerEvents;
     private String successMessage = "Login was successful";
     private String errorMessage = "Please fill All data";
-    private UsersFirestoreManager usersFirestoreManager;
+    private UsersRepository usersRepository;
 
     public RegisterViewModel(RegisterEvents registerViewModel,String type) {
         users = new Users("", "", "", "",type);
         this.registerEvents = registerViewModel;
-        usersFirestoreManager = UsersFirestoreManager.newInstance();
+        usersRepository = UsersRepository.newInstance();
     }
 
     public String getToastMessage() {
@@ -53,7 +53,7 @@ public class RegisterViewModel extends BaseObservable {
             contact.setUserName(users.getUserName());
             contact.setPassword(users.getPassword());
             contact.setUserType(users.getUserType());
-            if (usersFirestoreManager.createDocument(contact))
+            if (usersRepository.createDocument(contact))
                 registerEvents.onSuccessL();
             else
                 registerEvents.onFailerL();

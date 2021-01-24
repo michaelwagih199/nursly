@@ -72,5 +72,15 @@ public class Users {
         this.userType = userType;
     }
 
-
+    @Override
+    public String toString() {
+        return "Users{" +
+                "documentId='" + documentId + '\'' +
+                ", firstNameString='" + firstNameString + '\'' +
+                ", lastNameString='" + lastNameString + '\'' +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", userType='" + userType + '\'' +
+                '}';
+    }
 }

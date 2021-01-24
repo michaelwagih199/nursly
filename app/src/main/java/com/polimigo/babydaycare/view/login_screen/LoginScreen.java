@@ -10,9 +10,7 @@ import android.widget.Toast;
 import com.polimigo.babydaycare.R;
 import com.polimigo.babydaycare.databinding.ActivityLoginScreenBinding;
 import com.polimigo.babydaycare.view.AboutApplicationScreen;
-import com.polimigo.babydaycare.view.OwnerNurslyHome;
-import com.polimigo.babydaycare.view.register_screen.RegisterEvents;
-import com.polimigo.babydaycare.view.viewUtiliti.AwsemdialogIm;
+import com.polimigo.babydaycare.view.events.RegisterEvents;
 import com.polimigo.babydaycare.view.viewUtiliti.ViewDialog;
 import com.polimigo.babydaycare.viewModel.LoginViewModel;
 
