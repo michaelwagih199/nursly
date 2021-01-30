@@ -1,5 +1,6 @@
 package com.polimigo.babydaycare.repositories;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -72,43 +73,45 @@ public class UsersRepository {
     }
 
     public void isUser(final String userName, String password, final String userType, final Context context) {
+        Log.e("tt",""+userName+""+password+""+userType);
         contactsCollectionReference
                 .whereEqualTo("userType", userType)
                 .whereEqualTo("userName", userName)
                 .whereEqualTo("password", password)
                 .get()
                 .addOnCompleteListener(task -> {
-                    Log.i("error",""+task.getResult().getDocuments().isEmpty());
+//                    Log.i("error",""+task.getResult().getDocuments().isEmpty());
                     if (task.getResult().getDocuments().isEmpty()){
+                        ToastMessage.addMessage("check user name or password", context);
                         Intent i = new Intent(context.getApplicationContext(), LoginScreen.class);
                         context.startActivity(i);
-                        ToastMessage.addMessage("check user name or password", context);
+                        ((Activity)context).finish();
                     }
-
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             if (document.getData().isEmpty()) {
+
                                 ToastMessage.addMessage("check user name or password", context);
+
                             } else {
                                 if (userType.equals("owner")) {
                                     Intent i = new Intent(context.getApplicationContext(), OwnerNurslyHome.class);
                                     //i.putExtra("editFlag", Constant.updateFlag);4
                                     sharedPrefrenceHelper.setUsername(context, userName);
                                     context.startActivity(i);
+                                    ((Activity)context).finish();
                                 }
                                 if (userType.equals("seeker")) {
                                     Intent i = new Intent(context.getApplicationContext(), SeekerNurslyHome.class);
                                     sharedPrefrenceHelper.setUsername(context, userName);
                                     context.startActivity(i);
+                                    ((Activity)context).finish();
                                 }
-
                             }
-                            //  Log.d("tag", document.getId() + " => " + document.getData());
                         }
                     } else {
                         ToastMessage.addMessage("false", context);
-
-                        // Log.d("tag", "Error getting documents: ", task.getException());
+                        Log.i("error","false");
                     }
                 });
 

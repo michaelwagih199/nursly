@@ -3,6 +3,7 @@ package com.polimigo.babydaycare.viewModel;
 
 import android.content.Context;
 import android.text.TextUtils;
+
 import android.util.Log;
 import android.widget.RadioGroup;
 import androidx.databinding.BaseObservable;
@@ -50,12 +51,24 @@ public class LoginViewModel extends BaseObservable {
         this.users = users;
     }
 
+    public void setSeekerUserType(){
+        users.setUserType("seeker");
+    }
+
+    public void setOwnerUserType(){
+        users.setUserType("owner");
+    }
+
+
 
     public void onSplitTypeChanged(RadioGroup radioGroup, int id) {
-       if (id==1)
-           users.setUserType("owner");
-       if (id == 2)
-           users.setUserType("seeker");
+//        users.setUserType("");
+////        Log.d("userType",""+id+""+radioGroup.getCheckedRadioButtonId());
+//
+//       if (id==1)
+//           users.setUserType("owner");
+//       if (id == 2)
+//           users.setUserType("seeker");
     }
 
     public void onLoginClicked() {

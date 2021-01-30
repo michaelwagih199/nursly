@@ -67,18 +67,22 @@
                         android:orientation="horizontal">
 
                         <RadioButton
+                            android:id="@+id/r_owner"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:fontFamily="@font/el_messiri_medium"
+                            android:onClick="@{() -> viewModel.setOwnerUserType()}"
                             android:text="Owner"
                            />
 
                         <RadioButton
+                            android:id="@+id/r_seeker"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:fontFamily="@font/el_messiri_medium"
+                            android:onClick="@{() -> viewModel.setSeekerUserType()}"
                             android:text="Seeker"
                            />
 
