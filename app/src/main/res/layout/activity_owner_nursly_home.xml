@@ -29,6 +29,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:paddingBottom="@dimen/_20sdp">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -56,6 +57,7 @@
                 android:layout_marginRight="@dimen/_10sdp"
                 app:cardBackgroundColor="@color/yellow_c"
                 app:cardCornerRadius="@dimen/_15sdp">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -73,7 +75,6 @@
             android:id="@+id/llProgressBar"
             android:visibility="gone"
             layout="@layout/layout_progress_bar_with_text"/>
-
     </androidx.cardview.widget.CardView>
 
     <Button

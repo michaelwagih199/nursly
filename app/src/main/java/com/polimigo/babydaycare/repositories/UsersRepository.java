@@ -78,8 +78,8 @@ public class UsersRepository {
                 .whereEqualTo("password", password)
                 .get()
                 .addOnCompleteListener(task -> {
-                    Log.i("error",""+task.getResult());
-                    if (task.getResult().isEmpty()){
+                    Log.i("error",""+task.getResult().getDocuments().isEmpty());
+                    if (task.getResult().getDocuments().isEmpty()){
                         Intent i = new Intent(context.getApplicationContext(), LoginScreen.class);
                         context.startActivity(i);
                         ToastMessage.addMessage("check user name or password", context);
