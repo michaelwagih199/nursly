@@ -59,22 +59,29 @@ public class LoginViewModel extends BaseObservable {
     }
 
     public void onLoginClicked() {
-        if (isInputDataValid()) {
-            registerEvents.onStartedL();
-            usersRepository.isUser(
-                    users.getUserName(),
-                    users.getPassword(),
-                    users.getUserType(),
-                    context);
-        }
-        else
-            setToastMessage(errorMessage);
+        registerEvents.onStartedL();
+        usersRepository.isUser(
+                users.getUserName(),
+                users.getPassword(),
+                users.getUserType(),
+                context);
+//        if (isInputDataValid()) {
+//            registerEvents.onStartedL();
+//            usersRepository.isUser(
+//                    users.getUserName(),
+//                    users.getPassword(),
+//                    users.getUserType(),
+//                    context);
+//        }
+//        else
+//            setToastMessage(errorMessage);
+
     }
 
     public boolean isInputDataValid() {
         return !TextUtils.isEmpty(users.getUserName()) &&
                 !TextUtils.isEmpty(users.getPassword()) &&
-                !TextUtils.isEmpty(users.getUserType());
+                !users.getUserType().isEmpty();
     }
 
 }

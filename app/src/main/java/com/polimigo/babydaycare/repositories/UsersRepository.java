@@ -16,6 +16,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.polimigo.babydaycare.helpers.SharedPrefrenceHelper;
 import com.polimigo.babydaycare.helpers.ToastMessage;
 import com.polimigo.babydaycare.model.Users;
+import com.polimigo.babydaycare.view.login_screen.LoginScreen;
 import com.polimigo.babydaycare.view.nursly.OwnerNurslyHome;
 import com.polimigo.babydaycare.view.seeker.SeekerNurslyHome;
 
@@ -71,40 +72,43 @@ public class UsersRepository {
     }
 
     public void isUser(final String userName, String password, final String userType, final Context context) {
-        boolean isUser = false;
         contactsCollectionReference
                 .whereEqualTo("userType", userType)
                 .whereEqualTo("userName", userName)
                 .whereEqualTo("password", password)
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                if (document.getData().isEmpty()) {
-                                    ToastMessage.addMessage("check user name or password", context);
-                                } else {
-                                    if (userType.equals("owner")) {
-                                        Intent i = new Intent(context.getApplicationContext(), OwnerNurslyHome.class);
-                                        //i.putExtra("editFlag", Constant.updateFlag);4
-                                        sharedPrefrenceHelper.setUsername(context, userName);
-                                        context.startActivity(i);
-                                    }
-                                    if (userType.equals("seeker")) {
-                                        Intent i = new Intent(context.getApplicationContext(), SeekerNurslyHome.class);
-                                        sharedPrefrenceHelper.setUsername(context, userName);
-                                        context.startActivity(i);
-                                    }
+                .addOnCompleteListener(task -> {
+                    Log.i("error",""+task.getResult());
+                    if (task.getResult().isEmpty()){
+                        Intent i = new Intent(context.getApplicationContext(), LoginScreen.class);
+                        context.startActivity(i);
+                        ToastMessage.addMessage("check user name or password", context);
+                    }
 
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            if (document.getData().isEmpty()) {
+                                ToastMessage.addMessage("check user name or password", context);
+                            } else {
+                                if (userType.equals("owner")) {
+                                    Intent i = new Intent(context.getApplicationContext(), OwnerNurslyHome.class);
+                                    //i.putExtra("editFlag", Constant.updateFlag);4
+                                    sharedPrefrenceHelper.setUsername(context, userName);
+                                    context.startActivity(i);
                                 }
-                                //  Log.d("tag", document.getId() + " => " + document.getData());
-                            }
-                        } else {
-                            ToastMessage.addMessage("false", context);
+                                if (userType.equals("seeker")) {
+                                    Intent i = new Intent(context.getApplicationContext(), SeekerNurslyHome.class);
+                                    sharedPrefrenceHelper.setUsername(context, userName);
+                                    context.startActivity(i);
+                                }
 
-                            // Log.d("tag", "Error getting documents: ", task.getException());
+                            }
+                            //  Log.d("tag", document.getId() + " => " + document.getData());
                         }
+                    } else {
+                        ToastMessage.addMessage("false", context);
+
+                        // Log.d("tag", "Error getting documents: ", task.getException());
                     }
                 });
 

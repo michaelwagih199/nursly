@@ -17,7 +17,6 @@ import com.polimigo.babydaycare.view.viewUtiliti.AwsemdialogIm;
 import com.polimigo.babydaycare.viewModel.RegisterViewModel;
 
 public class RegisterScreen extends AppCompatActivity implements RegisterEvents {
-
     View llProgressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
