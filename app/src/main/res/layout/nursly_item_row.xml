@@ -36,7 +36,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Nursly Name:"
-
                     android:textColor="@android:color/white"
                     android:fontFamily="@font/el_messiri"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title" />
@@ -129,6 +128,32 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Today Price:"
+                    android:textColor="@android:color/white"
+                    android:fontFamily="@font/el_messiri"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{``+model.todayPrice}"
+                    android:textColor="@android:color/white"
+                    android:fontFamily="@font/el_messiri"
+                    android:textAlignment="textEnd"
+                    android:layout_weight="1"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+            </LinearLayout>
+
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

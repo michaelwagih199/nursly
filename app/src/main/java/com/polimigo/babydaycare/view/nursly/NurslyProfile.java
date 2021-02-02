@@ -9,6 +9,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import com.polimigo.babydaycare.R;
 import com.polimigo.babydaycare.databinding.ActivityNurslyProfileBinding;
+import com.polimigo.babydaycare.databinding.ActivityNurslyProfileBindingImpl;
+import com.polimigo.babydaycare.helpers.SharedPrefrenceHelper;
+import com.polimigo.babydaycare.repositories.NurslyRepository;
 import com.polimigo.babydaycare.view.GetLocation;
 import com.polimigo.babydaycare.view.events.RegisterEvents;
 import com.polimigo.babydaycare.view.login_screen.LoginScreen;
@@ -18,15 +21,22 @@ import com.polimigo.babydaycare.viewModel.NurslyProfileViewModel;
 
 public class NurslyProfile extends AppCompatActivity implements RegisterEvents {
     View llProgressBar;
+    ActivityNurslyProfileBindingImpl binding;
+    private NurslyRepository nurslyRepository;
+    SharedPrefrenceHelper sharedPrefrenceHelper = new SharedPrefrenceHelper();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityNurslyProfileBinding activityNurslyProfileBinding = DataBindingUtil.setContentView(this,R.layout.activity_nursly_profile);
-        NurslyProfileViewModel nurslyProfileViewModel = new NurslyProfileViewModel(this,"Save",this);
-        activityNurslyProfileBinding.setViewModel(nurslyProfileViewModel);
-        activityNurslyProfileBinding.executePendingBindings();
+        nurslyRepository = NurslyRepository.newInstance();
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_nursly_profile);
+        populateData();
         llProgressBar = findViewById(R.id.llProgressBar);
         startActivity(new Intent(this, GetLocation.class));
+    }
+
+    private void populateData() {
+        nurslyRepository.editeProfile(sharedPrefrenceHelper.getUsername(this), binding,this,this);
     }
 
     @BindingAdapter({"toastMessage"})

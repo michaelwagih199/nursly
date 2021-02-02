@@ -1,102 +1,254 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.nursly.OwnerNurslyHome"
-    android:background="@color/back_white">
+    xmlns:bind="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="ownerViewModel"
+            type="com.polimigo.babydaycare.viewModel.OwnerProfileViewModel" />
+    </data>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:orientation="vertical"
-        app:cardBackgroundColor="@color/blue"
-        app:cardCornerRadius="@dimen/_20sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.449">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/back_white">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/_20sdp">
+            app:cardBackgroundColor="@color/blue"
+            app:cardCornerRadius="@dimen/_20sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.449">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/tealDark"
-                android:text="Nursly Profile"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/_18sdp"
-                android:padding="@dimen/_6sdp"
-                android:textAlignment="center"/>
-
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="@dimen/_100sdp"
-                android:layout_height="@dimen/_100sdp"
-                android:elevation="@dimen/_20sdp"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/ic_baseline_account_circle_24" />
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:layout_marginRight="@dimen/_10sdp"
-                app:cardBackgroundColor="@color/yellow_c"
-                app:cardCornerRadius="@dimen/_15sdp">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/_20sdp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nursly Name"
+                    android:background="@color/tealDark"
                     android:padding="@dimen/_6sdp"
+                    android:text="Nursly Profile"
                     android:textAlignment="center"
-                    android:fontFamily="@font/el_messiri_medium"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_18sdp"/>
-            </androidx.cardview.widget.CardView>
+                    android:textColor="@android:color/white"
 
-        </LinearLayout>
+                    android:textSize="@dimen/_18sdp" />
 
-        <include
-            android:id="@+id/llProgressBar"
-            android:visibility="gone"
-            layout="@layout/layout_progress_bar_with_text"/>
-    </androidx.cardview.widget.CardView>
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_gravity="center_horizontal"
+                    android:elevation="@dimen/_20sdp"
+                    android:src="@drawable/ic_baseline_account_circle_24" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/ic_rounded_transparent"
-        android:onClick="onProfileClick"
-        android:text="Nursly Profile"
-        android:textColor="@color/blue"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    app:cardBackgroundColor="@color/yellow_c"
+                    app:cardCornerRadius="@dimen/_15sdp">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="618dp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/el_messiri_medium"
+                        android:text="@{ownerViewModel.nurslyModel.nurslyName}"
+                        android:textAlignment="center"
+                        android:textColor="@color/blue"
+                        android:textSize="@dimen/_18sdp" />
+                </androidx.cardview.widget.CardView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_8sdp"
+                        android:layout_weight="0.5"
+                        android:fontFamily="@font/el_messiri"
+                        android:text="nurslyPhone:"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/_14sdp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_8sdp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/el_messiri"
+                        android:text="@{ownerViewModel.nurslyModel.nurslyPhone}"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/_14sdp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_8sdp"
+                        android:layout_weight="0.5"
+                        android:fontFamily="@font/el_messiri"
+                        android:text="Governorate:"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/_14sdp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_8sdp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/el_messiri"
+                        android:text="@{ownerViewModel.nurslyModel.governorate}"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/_14sdp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_8sdp"
+                        android:layout_weight="0.5"
+                        android:fontFamily="@font/el_messiri"
+                        android:text="Available Bed:"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/_14sdp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_8sdp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/el_messiri"
+                        android:text="@{ownerViewModel.nurslyModel.nurslyBedsNumber}"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/_14sdp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_8sdp"
+                        android:layout_weight="0.5"
+                        android:fontFamily="@font/el_messiri"
+                        android:text="Today Price:"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/_14sdp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_8sdp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/el_messiri"
+                        android:text="@{``+ownerViewModel.nurslyModel.todayPrice}"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/_14sdp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_8sdp"
+                        android:layout_weight="0.5"
+                        android:fontFamily="@font/el_messiri"
+                        android:lines="2"
+                        android:text="Address:"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/_14sdp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_8sdp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/el_messiri"
+                        android:lines="2"
+                        android:text="@{ownerViewModel.nurslyModel.address}"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/_14sdp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <include
+                android:id="@+id/llProgressBar"
+                layout="@layout/layout_progress_bar_with_text"
+                android:visibility="gone" />
+
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/ic_rounded_transparent"
+            android:fontFamily="@font/el_messiri_medium"
+            android:onClick="onProfileClick"
+            android:text="Edit Profile"
+            android:textColor="@color/blue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="599dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

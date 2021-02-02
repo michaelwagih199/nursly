@@ -2,6 +2,8 @@ package com.polimigo.babydaycare.model;
 
 import com.google.firebase.firestore.DocumentId;
 
+import java.math.BigDecimal;
+
 public class NurslyModel {
     @DocumentId
     private String documentId;
@@ -10,7 +12,7 @@ public class NurslyModel {
     private String nurslyPhone;
     private String nurslyBedsNumber;
     private String governorate;
-    private String region;
+    private Double todayPrice;
     private String address;
     private String Latitude;
     private String Longitude;
@@ -19,17 +21,17 @@ public class NurslyModel {
     public NurslyModel() {
     }
 
-    public NurslyModel(String documentId, String nurslyName, String nurslyPhone, String nurslyBedsNumber, String governorate, String region, String address, String latitude, String longitude,String UserName) {
+    public NurslyModel(String documentId, String userName, String nurslyName, String nurslyPhone, String nurslyBedsNumber, String governorate, Double todayPrice, String address, String latitude, String longitude) {
         this.documentId = documentId;
+        this.userName = userName;
         this.nurslyName = nurslyName;
         this.nurslyPhone = nurslyPhone;
         this.nurslyBedsNumber = nurslyBedsNumber;
         this.governorate = governorate;
-        this.region = region;
+        this.todayPrice = todayPrice;
         this.address = address;
         Latitude = latitude;
         Longitude = longitude;
-        this.userName = userName;
     }
 
     public String getLatitude() {
@@ -88,14 +90,6 @@ public class NurslyModel {
         this.governorate = governorate;
     }
 
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -112,6 +106,15 @@ public class NurslyModel {
         this.userName = userName;
     }
 
+
+    public Double getTodayPrice() {
+        return todayPrice;
+    }
+
+    public void setTodayPrice(Double todayPrice) {
+        this.todayPrice = todayPrice;
+    }
+
     @Override
     public String toString() {
         return "NurslyModel{" +
@@ -121,10 +124,11 @@ public class NurslyModel {
                 ", nurslyPhone='" + nurslyPhone + '\'' +
                 ", nurslyBedsNumber='" + nurslyBedsNumber + '\'' +
                 ", governorate='" + governorate + '\'' +
-                ", region='" + region + '\'' +
+                ", todayPrice=" + todayPrice +
                 ", address='" + address + '\'' +
                 ", Latitude='" + Latitude + '\'' +
                 ", Longitude='" + Longitude + '\'' +
                 '}';
     }
+
 }

@@ -1,5 +1,6 @@
 package com.polimigo.babydaycare.repositories;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -15,13 +16,17 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.polimigo.babydaycare.databinding.ActivityNurslyProfileBindingImpl;
+import com.polimigo.babydaycare.databinding.ActivityOwnerNurslyHomeBindingImpl;
 import com.polimigo.babydaycare.helpers.SharedPrefrenceHelper;
 import com.polimigo.babydaycare.helpers.ToastMessage;
 import com.polimigo.babydaycare.model.NurslyModel;
 import com.polimigo.babydaycare.model.Users;
 import com.polimigo.babydaycare.view.adabters.NurslyRecyclerViewAdapter;
+import com.polimigo.babydaycare.view.events.RegisterEvents;
 import com.polimigo.babydaycare.view.nursly.OwnerNurslyHome;
 import com.polimigo.babydaycare.viewModel.NurslyProfileViewModel;
+import com.polimigo.babydaycare.viewModel.OwnerProfileViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -56,6 +61,7 @@ public class NurslyRepository {
                 ToastMessage.addMessage("Data Saved", context);
                 Intent i = new Intent(context.getApplicationContext(), OwnerNurslyHome.class);
                 context.startActivity(i);
+                ((Activity)context).finish();
             } else
                 ToastMessage.addMessage("Saved Faild", context);
         });
@@ -91,8 +97,8 @@ public class NurslyRepository {
 //                                        grade.setText(document.getData().get("grade").toString());
 //                                        id.setText(document.getId());
 
-                                        Log.d("testR",document.getData().get("governorate").toString());
-                                        Log.d("testR2",document.getId());
+                                        Log.d("testR", document.getData().get("governorate").toString());
+                                        Log.d("testR2", document.getId());
                                         nurslyModel.setGovernorate(document.getData().get("governorate").toString());
 
                                     } catch (Exception e) {
@@ -111,8 +117,9 @@ public class NurslyRepository {
 
 
     //get user of company
-    public void getData2 (@NotNull final Context mContext, @NotNull final RecyclerView recycleCustomer) {
+    public void getData2(@NotNull final Context mContext, @NotNull final RecyclerView recycleCustomer) {
         contactsCollectionReference
+                .orderBy("todayPrice")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -121,20 +128,73 @@ public class NurslyRepository {
                     for (DocumentSnapshot document : task.getResult()) {
                         NurslyModel taskItem = document.toObject(NurslyModel.class);
                         list.add(taskItem);
-                        NurslyRecyclerViewAdapter nurslyRecyclerViewAdapter = new NurslyRecyclerViewAdapter((ArrayList<NurslyModel>) list,mContext);
+                        NurslyRecyclerViewAdapter nurslyRecyclerViewAdapter = new NurslyRecyclerViewAdapter((ArrayList<NurslyModel>) list, mContext);
                         recycleCustomer.setAdapter(nurslyRecyclerViewAdapter);
                     }
                     Log.d("Tag", list.toString());
                 }
             }
         });
-
     }
 
-    public void updateContact(Users contact) {
+    public void getProfile(@NotNull String userName,ActivityOwnerNurslyHomeBindingImpl binding,Context context) {
+        contactsCollectionReference
+                .whereEqualTo("userName", userName)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.getResult().getDocuments().isEmpty()){
+                    NurslyModel nurslyModel =new NurslyModel("", "", "", "","", "", 0.0, "", "", "");
+                    OwnerProfileViewModel ownerProfileViewModel = new OwnerProfileViewModel(nurslyModel,context);
+                    binding.setOwnerViewModel(ownerProfileViewModel);
+                    binding.executePendingBindings();
+                }
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot document : task.getResult()) {
+                        NurslyModel taskItem = document.toObject(NurslyModel.class);
+                        OwnerProfileViewModel ownerProfileViewModel = new OwnerProfileViewModel(taskItem,context);
+                        binding.setOwnerViewModel(ownerProfileViewModel);
+                        binding.executePendingBindings();
+                    }
+                }
+            }
+        });
+    }
+
+    public void editeProfile(@NotNull String userName, ActivityNurslyProfileBindingImpl binding, Context context, RegisterEvents registerEvents) {
+        contactsCollectionReference
+                .whereEqualTo("userName", userName)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                if (task.getResult().getDocuments().isEmpty()){
+                    NurslyModel nurslyModel =new NurslyModel("", "", "", "","", "", 0.0, "", "", "");
+                    NurslyProfileViewModel nurslyProfileViewModel = new NurslyProfileViewModel(registerEvents, "Save", context,nurslyModel);
+                    binding.setViewModel(nurslyProfileViewModel);
+                    binding.executePendingBindings();
+                }
+
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot document : task.getResult()) {
+                        NurslyModel taskItem = document.toObject(NurslyModel.class);
+                        NurslyProfileViewModel nurslyProfileViewModel = new NurslyProfileViewModel(registerEvents, "Edit", context,taskItem);
+                        binding.setViewModel(nurslyProfileViewModel);
+                        binding.executePendingBindings();
+                    }
+                }
+            }
+        });
+    }
+
+
+    public void updateContact(NurslyModel contact,Context context) {
         String documentId = contact.getDocumentId();
         DocumentReference documentReference = contactsCollectionReference.document(documentId);
         documentReference.set(contact);
+        Intent i = new Intent(context.getApplicationContext(), OwnerNurslyHome.class);
+        context.startActivity(i);
+        ((Activity)context).finish();
     }
 
     public void deleteContact(String documentId) {

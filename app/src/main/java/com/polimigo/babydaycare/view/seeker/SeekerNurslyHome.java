@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
 import com.polimigo.babydaycare.R;
-import com.polimigo.babydaycare.databinding.ActivityNurslyProfileBinding;
+
 import com.polimigo.babydaycare.databinding.ActivitySeekerNurslyHomeBindingImpl;
 import com.polimigo.babydaycare.model.NurslyModel;
 import com.polimigo.babydaycare.repositories.NurslyRepository;
@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SeekerNurslyHome extends AppCompatActivity {
-
     private ActivitySeekerNurslyHomeBindingImpl binding;
     private NurslyRepository nurslyRepository;
 

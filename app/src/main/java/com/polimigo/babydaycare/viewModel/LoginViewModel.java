@@ -4,7 +4,6 @@ package com.polimigo.babydaycare.viewModel;
 import android.content.Context;
 import android.text.TextUtils;
 
-import android.util.Log;
 import android.widget.RadioGroup;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
