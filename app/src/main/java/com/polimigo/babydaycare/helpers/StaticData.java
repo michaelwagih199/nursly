@@ -9,7 +9,7 @@ import java.util.List;
 public class StaticData {
     public static List<String> getEgyptGovernorate(){
         List<String> governorates = Arrays.asList(
-                "Select governorates",
+                "All governorates",
                 "Matruh",
                 "Alexandria",
                 "Beheira",
