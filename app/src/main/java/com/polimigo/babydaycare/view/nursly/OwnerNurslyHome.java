@@ -34,7 +34,6 @@ public class OwnerNurslyHome extends AppCompatActivity  {
 
     public void onProfileClick(View view) {
         startActivity(new Intent(this,NurslyProfile.class));
-        finish();
     }
 
     private void populateData() {

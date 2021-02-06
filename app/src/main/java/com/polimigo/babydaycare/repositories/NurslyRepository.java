@@ -3,9 +3,11 @@ package com.polimigo.babydaycare.repositories;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -32,7 +34,9 @@ import com.polimigo.babydaycare.viewModel.OwnerProfileViewModel;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class NurslyRepository {
 
@@ -118,6 +122,7 @@ public class NurslyRepository {
 
 
     //get user of company
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void findByGovernorate(@NotNull final Context mContext, @NotNull final RecyclerView recycleCustomer, @NotNull String governorate) {
         ArrayList<NurslyModel> list = new ArrayList<>();
         contactsCollectionReference
@@ -131,7 +136,12 @@ public class NurslyRepository {
                 for (DocumentSnapshot document : task.getResult()) {
                     NurslyModel taskItem = document.toObject(NurslyModel.class);
                     list.add(taskItem);
-                    NurslyRecyclerViewAdapter nurslyRecyclerViewAdapter = new NurslyRecyclerViewAdapter(list, mContext);
+
+                    List<NurslyModel> sortedList = list.stream()
+                            .sorted(Comparator.comparingDouble(NurslyModel::getTodayPrice))
+                            .collect(Collectors.toList());
+
+                    NurslyRecyclerViewAdapter nurslyRecyclerViewAdapter = new NurslyRecyclerViewAdapter(sortedList, mContext);
                     recycleCustomer.setAdapter(nurslyRecyclerViewAdapter);
                 }
             }
@@ -159,51 +169,44 @@ public class NurslyRepository {
     public void getProfile(@NotNull String userName, ActivityOwnerNurslyHomeBindingImpl binding, Context context) {
         contactsCollectionReference
                 .whereEqualTo("userName", userName)
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.getResult().getDocuments().isEmpty()) {
-                    NurslyModel nurslyModel = new NurslyModel("", "", "", "", "", "", 0.0, "", "", "");
-                    OwnerProfileViewModel ownerProfileViewModel = new OwnerProfileViewModel(nurslyModel, context);
-                    binding.setOwnerViewModel(ownerProfileViewModel);
-                    binding.executePendingBindings();
-                }
-                if (task.isSuccessful()) {
-                    for (DocumentSnapshot document : task.getResult()) {
-                        NurslyModel taskItem = document.toObject(NurslyModel.class);
-                        OwnerProfileViewModel ownerProfileViewModel = new OwnerProfileViewModel(taskItem, context);
+                .get().addOnCompleteListener(task -> {
+                    if (task.getResult().getDocuments().isEmpty()) {
+                        NurslyModel nurslyModel = new NurslyModel("", "", "", "", "", "", 0.0, "", "", "");
+                        OwnerProfileViewModel ownerProfileViewModel = new OwnerProfileViewModel(nurslyModel, context);
                         binding.setOwnerViewModel(ownerProfileViewModel);
                         binding.executePendingBindings();
                     }
-                }
-            }
-        });
+                    if (task.isSuccessful()) {
+                        for (DocumentSnapshot document : task.getResult()) {
+                            NurslyModel taskItem = document.toObject(NurslyModel.class);
+                            OwnerProfileViewModel ownerProfileViewModel = new OwnerProfileViewModel(taskItem, context);
+                            binding.setOwnerViewModel(ownerProfileViewModel);
+                            binding.executePendingBindings();
+                        }
+                    }
+                });
     }
 
     public void editeProfile(@NotNull String userName, ActivityNurslyProfileBindingImpl binding, Context context, RegisterEvents registerEvents) {
         contactsCollectionReference
                 .whereEqualTo("userName", userName)
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
-                if (task.getResult().getDocuments().isEmpty()) {
-                    NurslyModel nurslyModel = new NurslyModel("", "", "", "", "", "", 0.0, "", "", "");
-                    NurslyProfileViewModel nurslyProfileViewModel = new NurslyProfileViewModel(registerEvents, "Save", context, nurslyModel);
-                    binding.setViewModel(nurslyProfileViewModel);
-                    binding.executePendingBindings();
-                }
-
-                if (task.isSuccessful()) {
-                    for (DocumentSnapshot document : task.getResult()) {
-                        NurslyModel taskItem = document.toObject(NurslyModel.class);
-                        NurslyProfileViewModel nurslyProfileViewModel = new NurslyProfileViewModel(registerEvents, "Edit", context, taskItem);
+                .get().addOnCompleteListener(task -> {
+                    if (task.getResult().getDocuments().isEmpty()) {
+                        NurslyModel nurslyModel = new NurslyModel("", "", "", "", "", "", 0.0, "", "", "");
+                        NurslyProfileViewModel nurslyProfileViewModel = new NurslyProfileViewModel(registerEvents, "Save", context, nurslyModel);
                         binding.setViewModel(nurslyProfileViewModel);
                         binding.executePendingBindings();
                     }
-                }
-            }
-        });
+
+                    if (task.isSuccessful()) {
+                        for (DocumentSnapshot document : task.getResult()) {
+                            NurslyModel taskItem = document.toObject(NurslyModel.class);
+                            NurslyProfileViewModel nurslyProfileViewModel = new NurslyProfileViewModel(registerEvents, "Edit", context, taskItem);
+                            binding.setViewModel(nurslyProfileViewModel);
+                            binding.executePendingBindings();
+                        }
+                    }
+                });
     }
 
 

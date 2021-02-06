@@ -1,12 +1,15 @@
 package com.polimigo.babydaycare.view.nursly;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.DataBindingUtil;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Spinner;
 import android.widget.Toast;
+
 import com.polimigo.babydaycare.R;
 import com.polimigo.babydaycare.databinding.ActivityNurslyProfileBinding;
 import com.polimigo.babydaycare.databinding.ActivityNurslyProfileBindingImpl;
@@ -29,14 +32,15 @@ public class NurslyProfile extends AppCompatActivity implements RegisterEvents {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         nurslyRepository = NurslyRepository.newInstance();
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_nursly_profile);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_nursly_profile);
         populateData();
         llProgressBar = findViewById(R.id.llProgressBar);
-        startActivity(new Intent(this, GetLocation.class));
+        if (sharedPrefrenceHelper.getLongitude(this).isEmpty())
+            startActivity(new Intent(this, GetLocation.class));
     }
 
     private void populateData() {
-        nurslyRepository.editeProfile(sharedPrefrenceHelper.getUsername(this), binding,this,this);
+        nurslyRepository.editeProfile(sharedPrefrenceHelper.getUsername(this), binding, this, this);
     }
 
     @BindingAdapter({"toastMessage"})

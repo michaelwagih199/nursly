@@ -59,8 +59,6 @@ public class NurslyProfileViewModel extends BaseObservable {
     }
 
     public void saveData() {
-        Log.e("kk", sharedPrefrenceHelper.getLatitude(context));
-        Log.e("kk", sharedPrefrenceHelper.getLongitude(context));
         if (isInputDataValid()) {
             NurslyModel model = new NurslyModel();
             model.setGovernorate(nurslyModel.getGovernorate());
@@ -83,7 +81,7 @@ public class NurslyProfileViewModel extends BaseObservable {
 
         } else
             setToastMessage(errorMessage);
-//        Log.e("kk", nurslyModel.toString());
+
     }
 
     public List<String> getData() {
@@ -109,7 +107,7 @@ public class NurslyProfileViewModel extends BaseObservable {
                 && !TextUtils.isEmpty(nurslyModel.getNurslyBedsNumber())
                 && !TextUtils.isEmpty(nurslyModel.getNurslyPhone())
                 && !TextUtils.isEmpty(nurslyModel.getNurslyName())
-                && !nurslyModel.getGovernorate().equals("Select governorates"))
+                && !nurslyModel.getGovernorate().equals("All governorates"))
             result = true;
         return result;
     }
