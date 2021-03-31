@@ -1,7 +1,11 @@
 package com.polimigo.babydaycare.viewModel;
+
+import android.content.Context;
 import android.text.TextUtils;
+
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
+
 import com.polimigo.babydaycare.BR;
 import com.polimigo.babydaycare.model.Users;
 import com.polimigo.babydaycare.repositories.UsersRepository;
@@ -16,11 +20,14 @@ public class RegisterViewModel extends BaseObservable {
     private String successMessage = "Login was successful";
     private String errorMessage = "Please fill All data";
     private UsersRepository usersRepository;
+    Context context;
 
-    public RegisterViewModel(RegisterEvents registerViewModel,String type) {
-        users = new Users("", "", "", "",type);
+    public RegisterViewModel(RegisterEvents registerViewModel, String type, Context context) {
+        users = new Users("", "", "", "", type);
+        this.context = context;
         this.registerEvents = registerViewModel;
         usersRepository = UsersRepository.newInstance();
+
     }
 
     public String getToastMessage() {
@@ -53,10 +60,8 @@ public class RegisterViewModel extends BaseObservable {
             contact.setUserName(users.getUserName());
             contact.setPassword(users.getPassword());
             contact.setUserType(users.getUserType());
-            if (usersRepository.createDocument(contact))
-                registerEvents.onSuccessL();
-            else
-                registerEvents.onFailerL();
+            usersRepository.createDocument(contact, context);
+
         } else {
             setToastMessage(errorMessage);
         }

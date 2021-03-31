@@ -13,6 +13,7 @@ import com.polimigo.babydaycare.repositories.UsersRepository;
 import com.polimigo.babydaycare.view.events.RegisterEvents;
 
 public class LoginViewModel extends BaseObservable {
+
     private Users users;
     private String successMessage = "Login was successful";
     private String errorMessage = "Login Failed";

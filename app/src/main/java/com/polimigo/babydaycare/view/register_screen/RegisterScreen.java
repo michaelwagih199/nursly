@@ -1,5 +1,6 @@
 package com.polimigo.babydaycare.view.register_screen;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -17,15 +18,17 @@ import com.polimigo.babydaycare.view.viewUtiliti.AwsemdialogIm;
 import com.polimigo.babydaycare.viewModel.RegisterViewModel;
 
 public class RegisterScreen extends AppCompatActivity implements RegisterEvents {
-    View llProgressBar;
+    private View llProgressBar;
+    private Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityOwnerNurslyBinding activityOwnerNurslyBinding =
                 DataBindingUtil.setContentView(this, R.layout.activity_owner_nursly);
         String userType = getIntent().getExtras().getString("userType");
-
-        RegisterViewModel registerViewModel = new RegisterViewModel(this,userType);
+        context = this;
+        RegisterViewModel registerViewModel = new RegisterViewModel(this, userType, context);
         activityOwnerNurslyBinding.setRegisterModel(registerViewModel);
         activityOwnerNurslyBinding.executePendingBindings();
         llProgressBar = findViewById(R.id.llProgressBar);
@@ -55,7 +58,6 @@ public class RegisterScreen extends AppCompatActivity implements RegisterEvents 
     public void onFailerL() {
 
     }
-
 
 
 }

@@ -19,6 +19,7 @@ import com.polimigo.babydaycare.helpers.ToastMessage;
 import com.polimigo.babydaycare.model.Users;
 import com.polimigo.babydaycare.view.login_screen.LoginScreen;
 import com.polimigo.babydaycare.view.nursly.OwnerNurslyHome;
+import com.polimigo.babydaycare.view.register_screen.RegisterScreen;
 import com.polimigo.babydaycare.view.seeker.SeekerNurslyHome;
 
 public class UsersRepository {
@@ -44,17 +45,25 @@ public class UsersRepository {
         contactsCollectionReference = firebaseFirestore.collection("users");
     }
 
-    public boolean createDocument(Users contact) {
-        final boolean[] result = {true};
-        contactsCollectionReference.add(contact).addOnCompleteListener(command -> {
-            Log.d("dddd",""+command.isSuccessful());
-            if (command.isSuccessful())
-                result[0] = true;
-            if (command.isCanceled())
-                result[0] = false;
-        });
-        Log.d("resss",""+result[0]);
-        return result[0];
+    public void createDocument(Users contact, final Context context) {
+        contactsCollectionReference
+                .whereEqualTo("userName", contact.getUserName())
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.getResult().getDocuments().isEmpty()) {
+                        contactsCollectionReference.add(contact).addOnCompleteListener(command -> {
+                        });
+                        ToastMessage.addMessage("user saved Succesfully", context);
+                        context.startActivity(new Intent(context,LoginScreen.class));
+                        ((Activity) context).finish();
+                    } else {
+                        ToastMessage.addMessage("User Already Saved", context);
+                        context.startActivity(new Intent(context, LoginScreen.class));
+                        ((Activity) context).finish();
+                    }
+                });
+
+
     }
 
     public void getAllContacts(OnCompleteListener<QuerySnapshot> onCompleteListener) {
@@ -73,7 +82,6 @@ public class UsersRepository {
     }
 
     public void isUser(final String userName, String password, final String userType, final Context context) {
-        Log.e("tt",""+userName+""+password+""+userType);
         contactsCollectionReference
                 .whereEqualTo("userType", userType)
                 .whereEqualTo("userName", userName)
@@ -81,11 +89,11 @@ public class UsersRepository {
                 .get()
                 .addOnCompleteListener(task -> {
 //                    Log.i("error",""+task.getResult().getDocuments().isEmpty());
-                    if (task.getResult().getDocuments().isEmpty()){
+                    if (task.getResult().getDocuments().isEmpty()) {
                         ToastMessage.addMessage("check user name or password", context);
                         Intent i = new Intent(context.getApplicationContext(), LoginScreen.class);
                         context.startActivity(i);
-                        ((Activity)context).finish();
+                        ((Activity) context).finish();
                     }
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
@@ -99,19 +107,19 @@ public class UsersRepository {
                                     //i.putExtra("editFlag", Constant.updateFlag);4
                                     sharedPrefrenceHelper.setUsername(context, userName);
                                     context.startActivity(i);
-                                    ((Activity)context).finish();
+                                    ((Activity) context).finish();
                                 }
                                 if (userType.equals("seeker")) {
                                     Intent i = new Intent(context.getApplicationContext(), SeekerNurslyHome.class);
                                     sharedPrefrenceHelper.setUsername(context, userName);
                                     context.startActivity(i);
-                                    ((Activity)context).finish();
+                                    ((Activity) context).finish();
                                 }
                             }
                         }
                     } else {
                         ToastMessage.addMessage("false", context);
-                        Log.i("error","false");
+                        Log.i("error", "false");
                     }
                 });
 

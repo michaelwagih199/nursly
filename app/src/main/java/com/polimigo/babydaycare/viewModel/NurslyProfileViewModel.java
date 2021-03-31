@@ -78,10 +78,8 @@ public class NurslyProfileViewModel extends BaseObservable {
                 registerEvents.onStartedL();
                 nurslyRepository.updateContact(model, context);
             }
-
         } else
             setToastMessage(errorMessage);
-
     }
 
     public List<String> getData() {
