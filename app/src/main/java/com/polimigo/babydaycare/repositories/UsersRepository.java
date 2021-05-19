@@ -5,10 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -19,8 +16,8 @@ import com.polimigo.babydaycare.helpers.ToastMessage;
 import com.polimigo.babydaycare.model.Users;
 import com.polimigo.babydaycare.view.login_screen.LoginScreen;
 import com.polimigo.babydaycare.view.nursly.OwnerNurslyHome;
-import com.polimigo.babydaycare.view.register_screen.RegisterScreen;
-import com.polimigo.babydaycare.view.seeker.SeekerNurslyHome;
+import com.polimigo.babydaycare.view.seeker.NurslyData;
+import com.polimigo.babydaycare.view.seeker.NurslyHome;
 
 public class UsersRepository {
 
@@ -62,8 +59,6 @@ public class UsersRepository {
                         ((Activity) context).finish();
                     }
                 });
-
-
     }
 
     public void getAllContacts(OnCompleteListener<QuerySnapshot> onCompleteListener) {
@@ -110,7 +105,7 @@ public class UsersRepository {
                                     ((Activity) context).finish();
                                 }
                                 if (userType.equals("seeker")) {
-                                    Intent i = new Intent(context.getApplicationContext(), SeekerNurslyHome.class);
+                                    Intent i = new Intent(context.getApplicationContext(), NurslyHome.class);
                                     sharedPrefrenceHelper.setUsername(context, userName);
                                     context.startActivity(i);
                                     ((Activity) context).finish();

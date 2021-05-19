@@ -23,6 +23,7 @@ import com.polimigo.babydaycare.viewModel.NurslyProfileViewModel;
 
 
 public class NurslyProfile extends AppCompatActivity implements RegisterEvents {
+
     View llProgressBar;
     ActivityNurslyProfileBindingImpl binding;
     private NurslyRepository nurslyRepository;
@@ -33,6 +34,7 @@ public class NurslyProfile extends AppCompatActivity implements RegisterEvents {
         super.onCreate(savedInstanceState);
         nurslyRepository = NurslyRepository.newInstance();
         binding = DataBindingUtil.setContentView(this, R.layout.activity_nursly_profile);
+
         populateData();
         llProgressBar = findViewById(R.id.llProgressBar);
         if (sharedPrefrenceHelper.getLongitude(this).isEmpty())

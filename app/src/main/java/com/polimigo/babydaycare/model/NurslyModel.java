@@ -5,6 +5,7 @@ import com.google.firebase.firestore.DocumentId;
 import java.math.BigDecimal;
 
 public class NurslyModel {
+
     @DocumentId
     private String documentId;
     private String userName;

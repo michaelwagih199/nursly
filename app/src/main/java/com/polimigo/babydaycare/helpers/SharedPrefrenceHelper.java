@@ -28,7 +28,6 @@ public class SharedPrefrenceHelper {
         return getPrefs(context).getString("userName", "admin");
     }
 
-
     public String getLatitude(Context context) {
         return getPrefs(context).getString("Latitude", "-");
     }

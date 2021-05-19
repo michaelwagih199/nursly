@@ -4,4 +4,5 @@ import com.polimigo.babydaycare.model.NurslyModel;
 
 public interface CustomClickListener {
     void cardClicked(NurslyModel f);
+    void cardBook(NurslyModel f);
 }

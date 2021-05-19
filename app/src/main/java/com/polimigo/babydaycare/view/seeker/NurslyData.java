@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class SeekerNurslyHome extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class NurslyData extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private ActivitySeekerNurslyHomeBindingImpl binding;
     private NurslyRepository nurslyRepository;
 

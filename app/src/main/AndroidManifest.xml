@@ -13,12 +13,16 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.BabyDayCare">
-        <activity android:name=".view.GetLocation"
-            android:theme="@android:style/Theme.Holo.Light.Dialog">
-        </activity>
+        <activity android:name=".view.nursly.BookingOrders"></activity>
+        <activity android:name=".view.seeker.BookingActivity" />
+        <activity android:name=".view.seeker.Vacations" />
+        <activity android:name=".view.seeker.NurslyHome" />
+        <activity
+            android:name=".view.GetLocation"
+            android:theme="@android:style/Theme.Holo.Light.Dialog" />
         <activity android:name=".view.nursly.NurslyProfile" />
         <activity
-            android:name=".view.seeker.SeekerNurslyHome"
+            android:name=".view.seeker.NurslyData"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.nursly.OwnerNurslyHome"

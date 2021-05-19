@@ -14,6 +14,7 @@ import com.polimigo.babydaycare.R;
 import com.polimigo.babydaycare.databinding.NurslyItemRowBinding;
 import com.polimigo.babydaycare.model.NurslyModel;
 import com.polimigo.babydaycare.view.events.CustomClickListener;
+import com.polimigo.babydaycare.view.seeker.BookingActivity;
 
 import java.util.List;
 
@@ -72,6 +73,13 @@ public class NurslyRecyclerViewAdapter extends RecyclerView.Adapter<NurslyRecycl
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");
         context.startActivity(mapIntent);
+    }
+
+    @Override
+    public void cardBook(NurslyModel f) {
+        Intent i= new Intent(context.getApplicationContext(), BookingActivity.class);
+        i.putExtra("nurslyName", f.getUserName());
+        context.startActivity(i);
     }
 
 }
