@@ -1,4 +1,21 @@
 <resources>
     <string name="app_name">Nursly</string>
 
+    <string-array name="vacctionList">
+        <item>All Vacctions</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="vacctionListAdd">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
 </resources>

@@ -41,6 +41,10 @@ public class OwnerNurslyHome extends AppCompatActivity {
         startActivity(new Intent(this, BookingOrders.class));
     }
 
+    public void onVacationsClick(View v){
+        startActivity(new Intent(this, VaccinationAdd.class));
+    }
+
     private void populateData() {
         nurslyRepository.getProfile(sharedPrefrenceHelper.getUsername(this), binding, this);
     }
