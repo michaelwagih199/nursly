@@ -14,9 +14,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.polimigo.babydaycare.helpers.SharedPrefrenceHelper;
 import com.polimigo.babydaycare.helpers.ToastMessage;
+import com.polimigo.babydaycare.model.NurslyModel;
 import com.polimigo.babydaycare.model.SeekerBookingModel;
 import com.polimigo.babydaycare.model.VaccinationModel;
 import com.polimigo.babydaycare.view.adabters.BookingRecyclerViewAdapter;
+import com.polimigo.babydaycare.view.adabters.NurslyRecyclerViewAdapter;
 import com.polimigo.babydaycare.view.adabters.VacctionsRecyclerViewAdapter;
 import com.polimigo.babydaycare.view.nursly.OwnerNurslyHome;
 import com.polimigo.babydaycare.view.seeker.NurslyHome;
@@ -58,16 +60,21 @@ public class VaccinationRepository {
     }
 
 
-    public void getDataByAge(Context mContext, RecyclerView bookingRecycle , String age) {
+    public void getDataByAge(Context mContext, RecyclerView bookingRecycle, String age) {
+        Log.e("ff", age);
+        ArrayList<VaccinationModel> list = new ArrayList<>();
         contactsCollectionReference
                 .whereEqualTo("age", age)
                 .get().addOnCompleteListener((OnCompleteListener<QuerySnapshot>) task -> {
+            if (task.getResult().getDocuments().isEmpty()) {
+                VacctionsRecyclerViewAdapter nurslyRecyclerViewAdapter = new VacctionsRecyclerViewAdapter(list, mContext);
+                bookingRecycle.setAdapter(nurslyRecyclerViewAdapter);
+            }
             if (task.isSuccessful()) {
-                ArrayList<SeekerBookingModel> list = new ArrayList<>();
                 for (DocumentSnapshot document : task.getResult()) {
-                    SeekerBookingModel taskItem = document.toObject(SeekerBookingModel.class);
+                    VaccinationModel taskItem = document.toObject(VaccinationModel.class);
                     list.add(taskItem);
-                    BookingRecyclerViewAdapter nurslyRecyclerViewAdapter = new BookingRecyclerViewAdapter(list, mContext);
+                    VacctionsRecyclerViewAdapter nurslyRecyclerViewAdapter = new VacctionsRecyclerViewAdapter(list, mContext);
                     bookingRecycle.setAdapter(nurslyRecyclerViewAdapter);
                 }
                 Log.d("Tag", list.toString());

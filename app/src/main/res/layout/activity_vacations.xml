@@ -32,7 +32,7 @@
             app:layout_constraintGuide_begin="68dp" />
 
         <Spinner
-            android:id="@+id/spinnerFilterData"
+            android:id="@+id/spinnerVacctionsData"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@+id/guideline2"
